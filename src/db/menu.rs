@@ -1,5 +1,6 @@
 use std::io;
 use std::fmt;
+use crate::db::registro::Registro; // Import del metodo registro
 
 #[derive(Debug)]
 enum Errori {
