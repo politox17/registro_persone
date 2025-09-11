@@ -1,7 +1,7 @@
 use std::io;
 use std::fmt;
 use crate::db::registro::Registro; // Import del metodo registro
- use regex::Regex; 
+use regex::Regex; 
 
 #[derive(Debug)]
 enum Errori {
@@ -24,14 +24,15 @@ impl fmt::Display for Errori {
 
 pub fn gestione_registro()-> Result<(), Errori>
 {
-    println!("\t\t--- Stiamo organizzando un torneo di calcio! Vuoi unirti? Segui le nostre indicazioni ----");
+    println!("\t\t--- Stiamo organizzando un torneo di calcio! Vuoi unirti? Segui le nostre indicazioni! ----");
     println!("=================================================================================================");
-    println!("Puoi unirti a qualsiasi età, ,ma leggi attentamente tutto!!");
+    println!("Puoi unirti a qualsiasi età,ma leggi attentamente tutto!!\n\n");
+    let nome = get_nome()?;
+    let cognome = get_cognome()?;
     
+    let registro = Registro::new(); // Creazione di una nuova istanza
+    registro.aggiungi_iscritti(nome, cognome); // Aggiunta del nome....
 }
-
-
-
 
 
 pub fn leggi_input_int() -> Result<i32, Errori> {
@@ -76,6 +77,6 @@ fn get_nome() -> Result<String, Errori> {
 
 fn get_cognome() -> Result<String, Errori>
 {
-    println!("[2] Inserisci il tuo cognome");
+    println!("\t[2] Inserisci il tuo cognome: ");
     leggi_input_string();
 }
