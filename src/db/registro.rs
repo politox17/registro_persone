@@ -14,15 +14,28 @@ pub struct Iscritto {
 
 impl Registro {
     pub fn new() -> Self {
-        iscritti::HashMap::new(),
+        Registro {
+                iscritti: HashMap::new(),
+        }
     }
-    pub fn aggiungi_iscritti(&mut self, nome: String) -> i32 {
+    pub fn aggiungi_iscritti(&mut self, nome: String, cognome: String)  {
            let id = Self::creazione_id();
-           self.iscritti.insert(id, nome.to_string());
-    }
+           let iscritto = Iscritto { nome, cognome };
+           self.iscritti.insert(id, iscritto);
+           println!("----------------------------------");
+           println!("Operazione di aggiunta completata con successo! ID (da non dimenticare): {id}");
+}
     pub fn creazione_id() -> i32 {
-        let mut random = rand::rng();
+        let mut random = rand::rng(); // Creation of a random number between 100 and 999
         let id = random.random_range(100..999);
         id
+    }
+    pub fn mostra_iscritti(&self) {
+        println!("\t\tEcco qua gli iscritti: \n\n");
+        let mut i = 0;
+       for (id,iscritto) in &self.iscritti
+       {
+          pritln!("[{}] {}: iscritto", i + 1, id, iscritto);
+       }
     }
 }
