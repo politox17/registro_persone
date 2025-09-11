@@ -1,6 +1,7 @@
 use std::io;
 use std::fmt;
 use crate::db::registro::Registro; // Import del metodo registro
+ use regex::Regex; 
 
 #[derive(Debug)]
 enum Errori {
@@ -23,7 +24,7 @@ impl fmt::Display for Errori {
 
 pub fn leggi_input_int() -> Result<i32, Errori> {
    let mut input = String::new();
-   io::stdin().read_line(&mut input)
+   std::io::stdin().read_line(&mut input)
             .map_err(|_| Errori::ValoreIntNonValido)?;
 
     let cleaned = input.trim(); // Rimuove spazi e newline
@@ -31,5 +32,29 @@ pub fn leggi_input_int() -> Result<i32, Errori> {
     match cleaned.parse::<i32> {
         Ok(num) => Ok(num),
         Err(_) => (Errori::ValoreIntNonValido),
+    }
+}
+
+pub fn leggi_input_string() -> Result<String, Errori> {
+   
+
+    let mut input = String::new();
+    std::io::stdin()
+        .read_line(&mut input)
+        .map_err(|_| Errori::InputNonValido)?;
+
+    let cleaned = input.trim().to_string();
+
+    if cleaned.is_empty() {
+        return Err(Errori::InputNonValido);
+    }
+
+    // Regex: solo lettere (anche con accenti e spazi tra nome e cognome)
+    let re = Regex::new(r"^[a-zA-ZàèéìòùÀÈÉÌÒÙ\s]+$").unwrap();
+
+    if re.is_match(&cleaned) {
+        Ok(cleaned)
+    } else {
+        Err(Errori::InputNonValido)
     }
 }
