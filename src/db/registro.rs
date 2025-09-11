@@ -12,6 +12,11 @@ pub struct Iscritto {
     nome: String,
     cognome: String,
 }
+impl fmt::Display for Iscritto {
+    fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
+        write!(f, "--{}: {}", self.nome, self,cognome);
+    }
+}
 
 impl Registro {
     pub fn new() -> Self {
