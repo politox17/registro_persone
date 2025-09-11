@@ -22,7 +22,7 @@ impl fmt::Display for Iscritto {
 impl Registro {
     pub fn new() -> Self {
         Registro {
-                iscritti: HashMap::new(), // New instance
+                iscritti: HashMap::new(), // Nuova istanza
         }
     }
     pub fn aggiungi_iscritti(&mut self, nome: String, cognome: String)  {
@@ -33,7 +33,7 @@ impl Registro {
            println!("Operazione di aggiunta completata con successo! ID (da non dimenticare): {id}");
 }
     pub fn creazione_id() -> i32 {
-        let mut random = rand::rng(); // Creation of a random number between 100 and 999
+        let mut random = rand::rng(); // Creazione di un id compreso tra 100 e 999
         let id = random.random_range(100..999);
         id
     }
@@ -42,7 +42,7 @@ impl Registro {
         
        for (id,iscritto) in &self.iscritti
        {
-          println!(" {}: {}",  id, iscritto); // To show the people in the Register
+          println!(" {}: {}",  id, iscritto); // Per mostrare gli iscritti effettivi nel registro
           
        }
     }
