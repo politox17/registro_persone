@@ -7,14 +7,15 @@ pub struct Registro{
    pub iscritti: HashMap<i32, Iscritto>
 }
 
-
+#[derive(Debug)]
 pub struct Iscritto {
     nome: String,
     cognome: String,
 }
+
 impl fmt::Display for Iscritto {
     fn fmt(&self, f: &mut fmt::Formatter) -> fmt::Result {
-        write!(f, "--{}: {}", self.nome, self,cognome);
+        write!(f, "-- {}: {}", self.nome, self.cognome)
     }
 }
 
@@ -38,11 +39,11 @@ impl Registro {
     }
     pub fn mostra_iscritti(&self) {
         println!("\t\tEcco qua gli iscritti: \n\n");
-        let mut i = 0;
+        
        for (id,iscritto) in &self.iscritti
        {
-          println!("[{}] {}: iscritto", i + 1, id, iscritto); // To show the people in the Register
-          i += 1;
+          println!(" {}: {}",  id, iscritto); // To show the people in the Register
+          
        }
     }
 }
