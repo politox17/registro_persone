@@ -1,5 +1,6 @@
 use std::collections::HashMap;
 use rand::Rng;
+use std::fmt;
 
 #[derive(Debug)]
 pub struct Registro{
@@ -15,7 +16,7 @@ pub struct Iscritto {
 impl Registro {
     pub fn new() -> Self {
         Registro {
-                iscritti: HashMap::new(),
+                iscritti: HashMap::new(), // New instance
         }
     }
     pub fn aggiungi_iscritti(&mut self, nome: String, cognome: String)  {
@@ -35,7 +36,8 @@ impl Registro {
         let mut i = 0;
        for (id,iscritto) in &self.iscritti
        {
-          pritln!("[{}] {}: iscritto", i + 1, id, iscritto);
+          println!("[{}] {}: iscritto", i + 1, id, iscritto); // To show the people in the Register
+          i += 1;
        }
     }
 }
