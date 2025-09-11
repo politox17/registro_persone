@@ -22,6 +22,18 @@ impl fmt::Display for Errori {
     }
 }
 
+pub fn gestione_registro()-> Result<(), Errori>
+{
+    println!("\t\t--- Stiamo organizzando un torneo di calcio! Vuoi unirti? Segui le nostre indicazioni ----");
+    println!("=================================================================================================");
+    println!("Puoi unirti a qualsiasi età, ,ma leggi attentamente tutto!!");
+    
+}
+
+
+
+
+
 pub fn leggi_input_int() -> Result<i32, Errori> {
    let mut input = String::new();
    std::io::stdin().read_line(&mut input)
@@ -36,9 +48,7 @@ pub fn leggi_input_int() -> Result<i32, Errori> {
 }
 
 pub fn leggi_input_string() -> Result<String, Errori> {
-   
-
-    let mut input = String::new();
+     let mut input = String::new();
     std::io::stdin()
         .read_line(&mut input)
         .map_err(|_| Errori::InputNonValido)?;
@@ -57,4 +67,15 @@ pub fn leggi_input_string() -> Result<String, Errori> {
     } else {
         Err(Errori::InputNonValido)
     }
+}
+
+fn get_nome() -> Result<String, Errori> {
+    println!("\t[1] Inserisci il tuo nome: ");
+    leggi_input_string();
+}
+
+fn get_cognome() -> Result<String, Errori>
+{
+    println!("[2] Inserisci il tuo cognome");
+    leggi_input_string();
 }
