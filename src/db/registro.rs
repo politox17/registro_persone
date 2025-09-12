@@ -3,6 +3,9 @@ use rand::Rng;
 use std::fmt;
 use std::fs::File;
 use std::io::prelude::*;
+use serde::{Serialize, Deserialize};
+use serde_json::Result;
+
 
 #[derive(Debug)]
 pub struct Registro{
@@ -36,7 +39,7 @@ impl Registro {
     let mut file = File::options()
         .append(true)
         .create(true)
-        .open("registro.txt")?;
+        .open("registro.json")?;
     
     // Formatta la stringa correttamente
     writeln!(file, "{}: {}", id, self.iscritti.get(&id).unwrap())?;
