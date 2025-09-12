@@ -1,7 +1,7 @@
 use std::collections::HashMap;
 use rand::Rng;
 use std::fmt;
-use registro_persone::db::menu::leggi_input_int;
+
 
 #[derive(Debug)]
 pub struct Registro{

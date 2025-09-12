@@ -43,19 +43,23 @@ let mut reg = Registro::new();
                 Ok(())
             },
             5 => {
+                println!("################################################################");
                 println!("Inserire l'ID da AGGIORNARE: \n");
                 let id = leggi_input_int()?;
                 println!("Inserire il nuovo nome da mettere: \n");
                 let nome = leggi_input_string()?;
-                println!("Inserire il nuovo cognome da aggiungere: \n")?;
+                println!("Inserire il nuovo cognome da aggiungere: \n");
                 let cognome = leggi_input_string()?;
                 reg.aggiorna(id,&nome, &cognome);
+                println!("Operazione completata con successo!!!");
                 Ok(())
             },
             6 => {
+                println!("##################################################################");
                 println!("Inserire l'ID dell'iscritto da eliminare: \n");
                 let id = leggi_input_int()?;
                 reg.elimina(&id);
+                println!("Operazione completata con successo!!!");
                 Ok(())
             }
             7 => {
