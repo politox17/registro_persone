@@ -84,7 +84,7 @@ impl Registro {
         false // ID non trovato
     }
 }
-    pub fn delete(&mut self, id: &i32) -> Option<Iscritto>
+    pub fn elimina(&mut self, id: &i32) -> Option<Iscritto> 
     {
         self.iscritti.remove(&id)
     }

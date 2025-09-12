@@ -51,6 +51,12 @@ let mut reg = Registro::new();
                 let cognome = leggi_input_string()?;
                 reg.aggiorna(id,&nome, &cognome);
                 Ok(())
+            },
+            6 => {
+                println!("Inserire l'ID dell'iscritto da eliminare: \n");
+                let id = leggi_input_int()?;
+                reg.elimina(&id);
+                Ok(())
             }
             7 => {
                 println!("Arrivederci!");
