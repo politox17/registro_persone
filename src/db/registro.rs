@@ -1,6 +1,7 @@
 use std::collections::HashMap;
 use rand::Rng;
 use std::fmt;
+use registro_persone::db::menu::leggi_input_int;
 
 #[derive(Debug)]
 pub struct Registro{
@@ -73,5 +74,11 @@ impl Registro {
                 println!("Nessun iscritto trovato con cognome: {input}");
             }
         }
+    }
+    pub fn aggiorna(&self,id: i32, nuovo_nome: &str, nuovo_cognome: &str)
+    {
+        let new_elemments = self.iscritti.entry(id.to_string()).or_insert();
+        new_elements.push(nuovo_nome.to_string());
+        new_elements.push(nuovo_cognome.to_string());
     }
 }
