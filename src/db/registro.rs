@@ -47,9 +47,31 @@ impl Registro {
        }
     }
     pub fn cerca_per_nome(&self, input: &str) {
-           match &self.iscritti.get(&input)
-           {
-            Some(nome) => ""
-           }
+          let mut  trovato = false;
+          for (id,iscritto) in &self.iscritti {
+            // per controllare se 2 stringhe sono case sensitive (eq_ignore_ascii_case)
+            if iscritto.nome.eq_ignore_ascii_case(input) {
+            println!("Eccolo qua: \n");
+            println!("- {id}: {nome}");
+            trovato = true;
+            }
+            if !trovato{
+                println!("Nessun iscritto trovato con nome: {nome}");
+            }
+          }
+       }
+    pub fn cerca_per_cognome(&self, input: &str) {
+        let mut trovato = false;
+        for (id, iscritto) in &self.iscritti
+        {
+            if iscritto.cognome.eq_ignore_ascii_case(input) {
+                println!("Eccolo qua: \n");
+                println!("- {id}: {cognome}");
+                trovato = true;
+            }
+            if !trovato {
+                println!("Nessun iscritto trovato con cognome: {cognome}");
+            }
+        }
     }
 }
