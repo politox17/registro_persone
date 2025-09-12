@@ -1,7 +1,8 @@
 use std::collections::HashMap;
 use rand::Rng;
 use std::fmt;
-
+use std::fs::File;
+use std::io::prelude::*;
 
 #[derive(Debug)]
 pub struct Registro{
@@ -26,10 +27,14 @@ impl Registro {
                 iscritti: HashMap::new(), // Nuova istanza
         }
     }
-    pub fn aggiungi_iscritti(&mut self, nome: String, cognome: String)  {
+    pub fn aggiungi_iscritti(&mut self, nome: String, cognome: String) -> std::io::Result<()>
+    {
            let id = Self::creazione_id();
            let iscritto = Iscritto { nome, cognome };
            self.iscritti.insert(id, iscritto);
+           let mut file = File::create("registro.txt")?;
+           file.write_all(b"{id} : {iscritto");
+
            println!("----------------------------------");
            println!("Operazione di aggiunta completata con successo! ID (da non dimenticare): {id}");
 }
