@@ -23,7 +23,7 @@ let mut reg = Registro::new();
 
         match input {
             1 => {
-                menu::gestione_registro()?;
+                menu::gestione_registro(&mut reg)?;
                 Ok(())
             },
             2 => {

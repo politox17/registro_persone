@@ -20,7 +20,7 @@ impl fmt::Display for Errori {
     }
 }
 
-pub fn gestione_registro() -> Result<(), Errori> {
+pub fn gestione_registro(registro: &mut Registro) -> Result<(), Errori> {
     println!("\t\t--- Stiamo organizzando un torneo di calcio! Vuoi unirti? Segui le nostre indicazioni! ----");
     println!("=================================================================================================");
     println!("Puoi unirti a qualsiasi età,ma leggi attentamente tutto!!\n\n");
@@ -28,7 +28,7 @@ pub fn gestione_registro() -> Result<(), Errori> {
     let nome = get_nome()?;
     let cognome = get_cognome()?;
     
-    let mut registro = Registro::new(); // Aggiunto 'mut' perché deve essere mutabile
+    
     registro.aggiungi_iscritti(nome, cognome); // Aggiunta del nome....
     
     Ok(()) // Aggiunto return value
