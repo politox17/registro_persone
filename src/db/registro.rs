@@ -75,10 +75,17 @@ impl Registro {
             }
         }
     }
-    pub fn aggiorna(&self,id: i32, nuovo_nome: &str, nuovo_cognome: &str)
+    pub fn aggiorna(&mut self, id: i32, nuovo_nome: &str, nuovo_cognome: &str) -> bool {
+    if let Some(iscritto) = self.iscritti.get_mut(&id) {
+        iscritto.nome = nuovo_nome.to_string();
+        iscritto.cognome = nuovo_cognome.to_string();
+        true // Aggiornamento riuscito
+    } else {
+        false // ID non trovato
+    }
+}
+    pub fn delete(&mut self, id: &i32) -> Option<Iscritto>
     {
-        let new_elemments = self.iscritti.entry(id.to_string()).or_insert();
-        new_elements.push(nuovo_nome.to_string());
-        new_elements.push(nuovo_cognome.to_string());
+        self.iscritti.remove(&id)
     }
 }
