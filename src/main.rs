@@ -42,6 +42,16 @@ let mut reg = Registro::new();
                 reg.cerca_per_cognome(&cognome);
                 Ok(())
             },
+            5 => {
+                println!("Inserire l'ID da AGGIORNARE: \n");
+                let id = leggi_input_int()?;
+                println!("Inserire il nuovo nome da mettere: \n");
+                let nome = leggi_input_string()?;
+                println!("Inserire il nuovo cognome da aggiungere: \n")?;
+                let cognome = leggi_input_string()?;
+                reg.aggiorna(id,&nome, &cognome);
+                Ok(())
+            }
             7 => {
                 println!("Arrivederci!");
                 break Ok(());
