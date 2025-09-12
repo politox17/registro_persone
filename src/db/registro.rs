@@ -27,16 +27,23 @@ impl Registro {
                 iscritti: HashMap::new(), // Nuova istanza
         }
     }
-    pub fn aggiungi_iscritti(&mut self, nome: String, cognome: String) -> std::io::Result<()>
-    {
-           let id = Self::creazione_id();
-           let iscritto = Iscritto { nome, cognome };
-           self.iscritti.insert(id, iscritto);
-           let mut file = File::create("registro.txt")?;
-           file.write_all(b"{id} : {iscritto");
-
-           println!("----------------------------------");
-           println!("Operazione di aggiunta completata con successo! ID (da non dimenticare): {id}");
+    pub fn aggiungi_iscritti(&mut self, nome: String, cognome: String) -> std::io::Result<()> {
+    let id = Self::creazione_id();
+    let iscritto = Iscritto { nome, cognome };
+    self.iscritti.insert(id, iscritto);
+    
+    // Apri il file in modalità append invece di create (per non sovrascrivere)
+    let mut file = File::options()
+        .append(true)
+        .create(true)
+        .open("registro.txt")?;
+    
+    // Formatta la stringa correttamente
+    writeln!(file, "{}: {}", id, self.iscritti.get(&id).unwrap())?;
+    
+    println!("----------------------------------");
+    println!("Operazione di aggiunta completata con successo! ID (da non dimenticare): {id}");
+    Ok(())
 }
     pub fn creazione_id() -> i32 {
         let mut random = rand::rng(); // Creazione di un id compreso tra 100 e 999
