@@ -52,11 +52,11 @@ impl Registro {
             // per controllare se 2 stringhe sono case sensitive (eq_ignore_ascii_case)
             if iscritto.nome.eq_ignore_ascii_case(input) {
             println!("Eccolo qua: \n");
-            println!("- {id}: {nome}");
+            println!("- {id}: {iscritto}");
             trovato = true;
             }
             if !trovato{
-                println!("Nessun iscritto trovato con nome: {nome}");
+                println!("Nessun iscritto trovato con nome: {input}");
             }
           }
        }
@@ -66,11 +66,11 @@ impl Registro {
         {
             if iscritto.cognome.eq_ignore_ascii_case(input) {
                 println!("Eccolo qua: \n");
-                println!("- {id}: {cognome}");
+                println!("- {id}: {iscritto}");
                 trovato = true;
             }
             if !trovato {
-                println!("Nessun iscritto trovato con cognome: {cognome}");
+                println!("Nessun iscritto trovato con cognome: {input}");
             }
         }
     }
