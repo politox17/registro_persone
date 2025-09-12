@@ -1,6 +1,8 @@
-
 use registro_persone::db::menu;
 use registro_persone::db::menu::leggi_input_int;
+use registro_persone::db::registro::Registro;
+
+
 
 fn main() {
     println!("\t\tBenvenuto nella nostra pagina! Leggi e scegli cosa fare!");
@@ -14,6 +16,14 @@ fn main() {
     println!("[7] Esci\n");
     println!("Selezionare il numero: \n");
     let input = leggi_input_int();
+
+    let reg = Registro::new();
+    
+    match input {
+        "1" => menu::gestione_registro(),
+        "2" => reg.mostra_iscritti(),
+        
+    }
     
     
 
