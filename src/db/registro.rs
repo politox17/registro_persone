@@ -46,4 +46,10 @@ impl Registro {
           
        }
     }
+    pub fn cerca_per_nome(&self, input: &str) {
+           match &self.iscritti.get(&input)
+           {
+            Some(nome) => ""
+           }
+    }
 }
