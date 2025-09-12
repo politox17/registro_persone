@@ -7,12 +7,12 @@ use serde::{Serialize, Deserialize};
 use serde_json::Result;
 
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Registro{
    pub iscritti: HashMap<i32, Iscritto>
 }
 
-#[derive(Debug)]
+#[derive(Debug, Serialize, Deserialize)]
 pub struct Iscritto {
     nome: String,
     cognome: String,
