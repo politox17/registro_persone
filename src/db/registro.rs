@@ -64,32 +64,53 @@ impl Registro {
     }
     pub fn cerca_per_nome(&self, input: &str) {
           let mut  trovato = false;
+          let mut trovati = Vec::new();
+
           for (id,iscritto) in &self.iscritti {
-            // per controllare se 2 stringhe sono case sensitive (eq_ignore_ascii_case)
-            if iscritto.nome.eq_ignore_ascii_case(input) {
-            println!("Eccolo qua: \n");
-            println!("- {id}: {iscritto}");
+            if iscritto.nome.eq_ignore_ascii_case(input)
+            {
+                println!("Trovato in memoria: {}: {}", id, iscritto);
+            trovati.push((*id, iscritto));
             trovato = true;
             }
-            if !trovato{
-                println!("Nessun iscritto trovato con nome: {input}");
-            }
           }
+          
        }
     pub fn cerca_per_cognome(&self, input: &str) {
-        let mut trovato = false;
-        for (id, iscritto) in &self.iscritti
-        {
-            if iscritto.cognome.eq_ignore_ascii_case(input) {
-                println!("Eccolo qua: \n");
-                println!("- {id}: {iscritto}");
-                trovato = true;
-            }
-            if !trovato {
-                println!("Nessun iscritto trovato con cognome: {input}");
+    let mut trovati = Vec::new();
+    let mut trovato_in_memoria = false;
+    
+    // 1. Cerca nella struct (memoria)
+    for (id, iscritto) in &self.iscritti {
+        if iscritto.cognome.eq_ignore_ascii_case(input) {
+            println!("Trovato in memoria: {}: {}", id, iscritto);
+            trovati.push((*id, iscritto));
+            trovato_in_memoria = true;
+        }
+    }
+    
+    // 2. Cerca nel file (per dati che potrebbero non essere in memoria)
+    if let Ok(contenuto) = read_to_string("registro.txt") {
+        for line in contenuto.lines() {
+            if let Some((id_str, nome_cognome)) = line.split_once(": ") {
+                if let Ok(id) = id_str.parse::<i32>() {
+                    // Estrai il cognome dalla stringa "nome cognome"
+                    if let Some(cognome) = nome_cognome.split_whitespace().nth(1) {
+                        if cognome.eq_ignore_ascii_case(input) {
+                            println!("Trovato nel file: {}", line);
+                            trovati.push((id, &line));
+                        }
+                    }
+                }
             }
         }
     }
+    
+    // 3. Gestisci il caso "non trovato"
+    if trovati.is_empty() {
+        println!("Nessun iscritto trovato con cognome: {}", input);
+    }
+}
     pub fn aggiorna(&mut self, id: i32, nuovo_nome: &str, nuovo_cognome: &str) -> bool {
     if let Some(iscritto) = self.iscritti.get_mut(&id) {
         iscritto.nome = nuovo_nome.to_string();
@@ -103,13 +124,8 @@ impl Registro {
     {
         self.iscritti.remove(&id)
     }
-    fn read_line(filename: &str) -> Vec<String>
-    {
-        let mut result = Vec::new();
-
-        for line in read_to_string(filename).unwrap().line() {
-            result.push(line.to_string());
-        }
-        result
-    }
+    fn read_lines(filename: &str) -> std::io::Result<Vec<String>> {
+    let content = std::fs::read_to_string(filename)?;
+    Ok(content.lines().map(|s| s.to_string()).collect())
+}
 }
