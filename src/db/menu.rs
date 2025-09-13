@@ -2,6 +2,7 @@ use std::io;
 use std::fmt;
 use crate::db::registro::Registro;
 use regex::Regex; 
+use std::fs::File;
 
 #[derive(Debug)]
 pub enum Errori {

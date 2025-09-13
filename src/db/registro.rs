@@ -2,17 +2,17 @@ use std::collections::HashMap;
 use rand::Rng;
 use std::fmt;
 use std::fs::File;
-use std::io::prelude::*;
-use serde::{Serialize, Deserialize};
-use serde_json::Result;
+use std::io::Write;
 
 
-#[derive(Debug, Serialize, Deserialize)]
+
+
+#[derive(Debug)]
 pub struct Registro{
    pub iscritti: HashMap<i32, Iscritto>
 }
 
-#[derive(Debug, Serialize, Deserialize)]
+#[derive(Debug)]
 pub struct Iscritto {
     nome: String,
     cognome: String,
@@ -39,7 +39,7 @@ impl Registro {
     let mut file = File::options()
         .append(true)
         .create(true)
-        .open("registro.json")?;
+        .open("registro.txt")?;
     
     // Formatta la stringa correttamente
     writeln!(file, "{}: {}", id, self.iscritti.get(&id).unwrap())?;
