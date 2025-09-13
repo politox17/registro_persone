@@ -2,7 +2,8 @@ use std::collections::HashMap;
 use rand::Rng;
 use std::fmt;
 use std::fs::File;
-use std::io::Write;
+use std::fs::read_to_string;
+use std::io::{Write, Read};
 
 
 
@@ -56,11 +57,10 @@ impl Registro {
     pub fn mostra_iscritti(&self) {
         println!("\t\tEcco qua gli iscritti: \n\n");
         
-       for (id,iscritto) in &self.iscritti
-       {
-          println!(" {}: {}",  id, iscritto); // Per mostrare gli iscritti effettivi nel registro
-          
-       }
+       let mut file = std::fs::File::open("registro.txt").unwrap();
+       let mut contenuto = String::new();
+       file.read_to_string(&mut contenuto).unwrap();
+       println!("{}", contenuto);
     }
     pub fn cerca_per_nome(&self, input: &str) {
           let mut  trovato = false;
@@ -102,5 +102,14 @@ impl Registro {
     pub fn elimina(&mut self, id: &i32) -> Option<Iscritto> 
     {
         self.iscritti.remove(&id)
+    }
+    fn read_line(filename: &str) -> Vec<String>
+    {
+        let mut result = Vec::new();
+
+        for line in read_to_string(filename).unwrap().line() {
+            result.push(line.to_string());
+        }
+        result
     }
 }
