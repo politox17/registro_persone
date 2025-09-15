@@ -82,7 +82,7 @@ impl Registro {
                     if let Ok(id) = id_str.parse::<i32>() { 
                         if let Some(nome) = nome_cognome.split_whitespace().nth(0) {
                             if nome.eq_ignore_ascii_case(input) { // Correzione: confronta con input, non con contenuto
-                                println!("Trovato nel file: {}", line);
+                                println!("Trovato nel file ->  {}", line);
                                 trovati.push(id);
                             }
                         }
@@ -116,7 +116,7 @@ impl Registro {
                     // Estrai il cognome dalla stringa "nome cognome"
                     if let Some(cognome) = nome_cognome.split_whitespace().nth(1) {
                         if cognome.eq_ignore_ascii_case(input) {
-                            println!("Trovato nel file: {}", line);
+                            println!("Trovato nel file ->  {}", line);
                             trovati.push(id);
                         }
                     }
@@ -134,11 +134,12 @@ impl Registro {
     if let Some(iscritto) = self.iscritti.get_mut(&id) {
         iscritto.nome = nuovo_nome.to_string();
         iscritto.cognome = nuovo_cognome.to_string();
-        true // Aggiornamento riuscito
+        return true; // Aggiornamento riuscito
     } else {
-        false // ID non trovato
+         return false; // ID non trovato
     }
-    elimina(&id);
+    self.read_lines("registro.txt");
+    self.elimina(&id);
 }
     pub fn elimina(&mut self, id: &i32) -> Option<Iscritto> 
     {
@@ -147,5 +148,5 @@ impl Registro {
     fn read_lines(filename: &str) -> std::io::Result<Vec<String>> {
     let content = std::fs::read_to_string(filename)?;
     Ok(content.lines().map(|s| s.to_string()).collect())
-}
+   }
 }
